@@ -20,3 +20,12 @@ Template.hello.events({
     instance.counter.set(instance.counter.get() + 1);
   },
 });
+
+
+//console.log("Estou no CLIENT, pasta CLIENT main.js");
+
+/* TESTE DO CLIET SERVER
+if(Meteor.isServer){
+    console.log("Estou no SERVER, pasta SERVER main.js");
+}
+*/
