@@ -1,0 +1,71 @@
+ROTEIRO:
+
+- Apresentação do Meteor.js
+
+- Mostrar o layout estático - D:\HTML - JS - Projects\ FIP_tutorial_front
+
+- Criação da aplicação
+- Pastas especiais
+- Fazer o console.log no server e no client
+
+- Editando e criando um template simples - ok
+- Criação de um Collections de Fotos - ok
+
+Sessões - Criando um relógio
+Respondendo a ações do usuário
+Inserindo e Removendo itens de uma coleção
+Altenticação do Usuario
+Criando uma nav bar com bootstrap
+Hackeando o site
+Tornando a aplicação mais segura
+Deploy da aplicação online
+Dicas de desenvolvimento
+Onde encontrar Tutorias
+
+
+    <------     main.html      ------->
+        Editando e criando um template
+
+        <body>
+          <h1>Welcome to Meteor!</h1>
+          {{> hello}}
+
+        </body>
+
+
+        <template name="hello">
+           <p>Olá Mundo</p>
+        </template>
+
+    <--------------->
+
+
+
+    <------     main.js - server / cliten      ------->
+        Criação de um Collections de Postagem
+
+        Postagem = new Mongo.Collection("Postagem");
+
+        
+    <--------------->
+
+    Sessões - Criando um relógio
+    Respondendo a ações do usuário
+
+    Inserindo e Removendo itens de uma coleção
+    Altenticação do Usuario
+    Criando uma nav bar com bootstrap
+    Hackeando o site
+    Tornando a aplicação mais segura
+    Deploy da aplicação online
+    Dicas de desenvolvimento
+    Onde encontrar Tutorias
+
+
+
+//new Date().toLocaleTimeString("pt-BR")
+
+
+Accounts.ui.config({
+    passwordSignupFields: "USERNAME_AND_EMAIL"
+});
