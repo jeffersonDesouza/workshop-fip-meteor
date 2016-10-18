@@ -43,6 +43,40 @@ Onde encontrar Tutorias
 
 
 
+Sessões - Criando um relógio - slide explicando session
+    <-------    main.html -------->
+
+        {{>relogio}}
+
+        <template name="relogio">
+            <p>{{horas}}</p>
+        </template>
+
+
+    <-------    main.js   -------->
+        P1:
+        Template.relogio.helpers({
+            horas(){
+                return new Date();
+            }
+        });
+
+        P2:
+        Session.set('horas',new Date())
+
+        Template.relogio.helpers({
+            horas(){
+                return Session.get('horas');
+            }
+        });
+
+        Meteor.setInterval(function(){},1000);
+
+        new Date().toLocaleTimeString("pt-BR")
+
+
+
+
     Criação de um Collections de Postagem
     <------     main.js - server / cliten      ------->
 
@@ -268,6 +302,7 @@ Escondendo add for e butao de excluir se n estiver logado
 
 
 
+Tornando a aplicação mais segura
 Hackeando o site
     <-------    packages    -------->
         remover o insecure  e autopublush
@@ -276,16 +311,89 @@ Publish
     <-------    packages    -------->
         remover o insecure  e autopublush
 
+        Meteor.subscribe("usres");
+        Meteor.subscribe("postagens");
 
 
-    Sessões - Criando um relógio
+
+        Meteor.publish("postagens", function(){
+            return Postagens.find();
+        });
+
+        Postagens.allow({
+            insert: function(){
+                if(Meteor.userId()){
+                    return true;
+                }
+                return false;
+            },
+            update: function(){
+                    if(this.userId){
+                        return true;
+                    }
+                    return false;
+            },
+            remove: function (userId, doc, fields, modifier) {
+                if (doc.criadoPor === userId) {
+                    return true;
+                }
+
+                return false;
+            }
+        });
 
 
-    Tornando a aplicação mais segura
+Criando um filtro para imagens de um só autor
+        <-------    main.js    -------->
+            Template.quadrodepostagens.events...
+
+        'click .js-set-image-filter': function(event){
+             Session.set("filtarAutor", this.criadoPor);
+        },      
+
+
+        postagens
+        if(Session.get('filtarAutor')){
+                return Postagens.find({criadoPor: Session.get('filtarAutor')});
+            }else{
+                return Postagens.find();
+            }
+
+
+
+        helper:
+
+        isFiltrandoImagens(){
+            if(Session.get("filtarAutor")){
+                return true;
+            }else{
+                return false;
+            }
+        },
+
+        events
+        'click .js-unset-image-filter':function(){
+           Session.set("userFilter", undefined);
+        }
+
+
+
+
+Adicionando o Iron:router - slide
+   <-------    main.js    -------->
+    apagar
+
+    Router.route('/', function () {
+     
+    });
+
+
+
+
     Deploy da aplicação online
     Dicas de desenvolvimento
     Onde encontrar Tutorias
 
 
 
-//new Date().toLocaleTimeString("pt-BR")
+

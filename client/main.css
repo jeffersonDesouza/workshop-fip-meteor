@@ -8,12 +8,27 @@
 }
 
 .navbar{
-	background-color: #4d004d !important;
+	background-color: #01579B !important;
 	border-radius: 0;
 	color: #fff;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
 }
 
 
 .glyphicon.glyphicon-remove-circle:hover{
     cursor: pointer;
+}
+
+
+a.login-link-text{
+	color:#fff;
+	text-decoration: none;
+}
+
+a.login-link-text:active{
+	text-decoration: none;
+}
+
+a.login-link-text:visited{
+	text-decoration: none;
 }

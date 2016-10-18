@@ -23,10 +23,28 @@ Accounts.ui.config({
     });
 
 
+    
+
+    Meteor.setInterval(function(){
+        Session.set('horas', new Date().toLocaleTimeString("pt-BR"));
+    },1000);
+
+
+    Template.relogio.helpers({
+        horas(){
+            return Session.get('horas');
+        }
+    });
+
 
     Template.quadroDePostagens.helpers({
         postagens(){
-            return Postagens.find();
+
+            if(Session.get('filtarAutor')){
+                return Postagens.find({criadoPor: Session.get('filtarAutor')});
+            }else{
+                return Postagens.find({});
+            }
         },
         nome_autor(criadoPor){
             var user = Meteor.users.findOne({_id:criadoPor},{username:1});
@@ -42,7 +60,15 @@ Accounts.ui.config({
 
             console.log(criadoPor == Meteor.userId());
             return criadoPor == Meteor.userId();
-        }
+        },
+        isFiltrandoImagens(){
+            if(Session.get("filtarAutor")){
+                return true;
+            }else{
+                return false;
+            }
+        },
+
     });
 
     Template.quadroDePostagens.events({
@@ -50,6 +76,12 @@ Accounts.ui.config({
             var imgId = this._id;
 
             Postagens.remove({_id:imgId});
+        },
+        'click .js-set-image-filter': function(event){
+             Session.set("filtarAutor", this.criadoPor);
+        },
+        'click .js-unset-image-filter':function(){
+           Session.set("filtarAutor", undefined);
         }
     });
 
@@ -78,6 +110,13 @@ Accounts.ui.config({
 
 
 
+
+
+
+
+Router.route('/', function () {
+ 
+});
 
 
     /*

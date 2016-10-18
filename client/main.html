@@ -5,6 +5,8 @@
 
 <body>
 
+
+
     {{> navBar}}
 
     <div class="container">
@@ -20,6 +22,13 @@
 
 
 </body>
+
+
+<template name="relogio">
+    <p>{{horas}}</p>
+</template>
+
+
 
 
 <template name="navBar">
@@ -55,6 +64,14 @@
 
 
 <template name="quadroDePostagens">
+
+    {{#if isFiltrandoImagens}}
+      <div class="row">        
+        <a href="#" class="btn btn-info js-unset-image-filter">Voltar</a>
+        <h3>Images By: {{getFilterUser}}</h3>
+    </div>
+    {{/if}}
+
     <div class="row">
     {{#each postagens}}
         <div id="{{_id}}" class="col-xs-12 col-sm-4 col-md-3">
@@ -76,7 +93,7 @@
 						<p>Autor:
 							<a href="#" class="js-set-image-filter">{{nome_autor criadoPor}}</a>
 						</p>
-                        {{criadoPor}}
+                        
 					</div>
 				</div>
 			</div>
