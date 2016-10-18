@@ -5,9 +5,43 @@ import './main.html';
 
 Postagens = new Mongo.Collection("postagens");
 
+Accounts.ui.config({
+    passwordSignupFields: "USERNAME_AND_EMAIL"
+});
+
+    Meteor.subscribe("usres");
+    Meteor.subscribe("postagens");
+
+    Template.body.helpers({
+        isLoggedIn(){
+            if(Meteor.userId()){
+                return true;
+            }
+
+            return false;
+        }
+    });
+
+
+
     Template.quadroDePostagens.helpers({
         postagens(){
             return Postagens.find();
+        },
+        nome_autor(criadoPor){
+            var user = Meteor.users.findOne({_id:criadoPor},{username:1});
+
+            if(user){
+                return user.username;
+            }else{
+                return "Anônimo";
+            }
+
+        },
+        isAutor(criadoPor){
+
+            console.log(criadoPor == Meteor.userId());
+            return criadoPor == Meteor.userId();
         }
     });
 
@@ -30,6 +64,7 @@ Postagens = new Mongo.Collection("postagens");
                 'imgSrc':imgSrc,
                 'descricao': descricao,
                 'criadoEm': new Date(),
+                'criadoPor': Meteor.userId()
             });
 
             event.target.img_src.value = '';

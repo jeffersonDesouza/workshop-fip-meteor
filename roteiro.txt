@@ -196,21 +196,91 @@ Criando uma nav bar com bootstrap
     <--------------->
 
 Adicionando o thumbail
-    <-------    -------->
+    <-------    main.html       -------->
+    <div id="{{_id}}" class="col-xs-12 col-sm-4 col-md-3">
 
+        <div class="thumbnail">
+            <div class="text-right">
+                <span id="js-remove-postage" class="glyphicon glyphicon-remove-circle" aria-hidden="true"
+                    style="font-size: 25px;color:#878787"></span>
+            </div>
+            <img  src="{{imgSrc}}" alt="foto" class="img-responsive">
 
+            <div class="caption">
+                <p>{{descricao}}</p>
+                <div>
+                    <p>Autor:
+                        <a href="#" class="js-set-image-filter">nome do usuario</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+Altenticação do Usuario
+    <-------    mains.js    -------->
+        add login butons
+        {{> loginButtons}}
+
+        {{> loginButtons align="right"}}
+
+        Accounts.ui.config({
+            passwordSignupFields: "USERNAME_AND_EMAIL"
+        });
 
     <--------------->
 
-    <-------    -------->
-    <--------------->
+Adicioanando criado Por
+        <-------    mains.js    -------->
+            'criadoPor': Meteor.userId()
+
+        <-------    -------->
+
+Escondendo add for e butao de excluir se n estiver logado
+        <-------    mains.js    -------->
+            Template.body.helpers({
+                isLoggedIn(){
+                    if(Meteor.userId()){
+                        return true;
+                    }
+
+                    return false;
+                }
+            });
+
+            {{#if isLoggedIn}}
+            <div style="padding-bottom:10px">
+                {{> formularioInserirPostagem}}
+            </div>
+            {{/if}}
+
+
+            BOTAO EXCLUIR POSTAGEM
+
+            Template.quadroDePostagens.helpers({....
+
+            isAutor(criadoPor){
+
+                return criadoPor == Meteor.userId();
+            }
+
+        <-------    -------->
+
+
+
+Hackeando o site
+    <-------    packages    -------->
+        remover o insecure  e autopublush
+
+Publish
+    <-------    packages    -------->
+        remover o insecure  e autopublush
+
 
 
     Sessões - Criando um relógio
-    Respondendo a ações do usuário
 
-    Altenticação do Usuario
-    Hackeando o site
+
     Tornando a aplicação mais segura
     Deploy da aplicação online
     Dicas de desenvolvimento
@@ -219,8 +289,3 @@ Adicionando o thumbail
 
 
 //new Date().toLocaleTimeString("pt-BR")
-
-
-Accounts.ui.config({
-    passwordSignupFields: "USERNAME_AND_EMAIL"
-});

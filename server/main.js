@@ -41,3 +41,30 @@ Meteor.startup(() => {
     }
 
 });
+
+
+Meteor.publish("postagens", function(){
+    return Postagens.find();
+});
+
+Postagens.allow({
+    insert: function(){
+        if(Meteor.userId()){
+            return true;
+        }
+        return false;
+    },
+    update: function(){
+            if(this.userId){
+                return true;
+            }
+            return false;
+    },
+    remove: function (userId, doc, fields, modifier) {
+        if (doc.criadoPor === userId) {
+            return true;
+        }
+
+        return false;
+    }
+});
