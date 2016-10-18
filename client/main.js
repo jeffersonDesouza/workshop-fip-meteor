@@ -5,6 +5,43 @@ import './main.html';
 
 Postagens = new Mongo.Collection("postagens");
 
+    Template.quadroDePostagens.helpers({
+        postagens(){
+            return Postagens.find();
+        }
+    });
+
+    Template.quadroDePostagens.events({
+        'click #js-remove-postage'(){
+            var imgId = this._id;
+
+            Postagens.remove({_id:imgId});
+        }
+    });
+
+
+    Template.formularioInserirPostagem.events({
+        "submit .js-formulario-inserir-postagem"(event, instance){
+            var imgSrc = event.target.img_src.value;
+            var descricao = event.target.descricao.value;
+
+
+            Postagens.insert({
+                'imgSrc':imgSrc,
+                'descricao': descricao,
+                'criadoEm': new Date(),
+            });
+
+            event.target.img_src.value = '';
+            event.target.descricao.value = '';
+
+            return false;
+        }
+    });
+
+
+
+
 
 
 

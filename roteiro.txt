@@ -1,3 +1,5 @@
+deixar o mozzila aberto também
+
 ROTEIRO:
 
 - Apresentação do Meteor.js
@@ -49,7 +51,7 @@ Onde encontrar Tutorias
         Postagens.insert(
             {
                 imgSrc:'https://upload.wikimedia.org/wikipedia/commons/e/eb/Iron_Maiden_-_bass_and_guitars_30nov2006.jpg',
-                descricao:'The winter is comming, menos em Patos',
+                descricao:'Iron Maiden',
                 criadoEm: new Date(),
             }
         );
@@ -65,7 +67,7 @@ Onde encontrar Tutorias
         Postagens.insert(
             {
                 imgSrc:'http://images1.mtv.com/uri/mgid:file:docroot:vh1.com:/sitewide/flipbooks/img/news/10_hottest_albums_september_08/05_81091189.jpg?enlarge=false&matte=true&matteColor=black&quality=0.85',
-                descricao:'The winter is comming, menos em Patos',
+                descricao:'Say my name',
                 criadoEm:new Date(),
             }
         );
@@ -73,24 +75,121 @@ Onde encontrar Tutorias
         Postagens.insert(
             {
                 imgSrc:'http://artandroll.net/wp-content/uploads/2016/07/sepultura-2013.jpg',
-                descricao:'The winter is comming, menos em Patos',
+                descricao:'Sepultura do Brasil',
                 criadoEm:new Date(),
             }
         );
-
     <--------------->
 
-    <-------            -------->
+    paresentando postagens de forma tosca
+    <-------   main.html         -------->
+        <template name="quadroDePostagens">
+            <p>Fotos</p>
+        </template>
 
+        explicar helpers
 
+        <template name="quadroDePostagens">
+
+            <div class="row">
+            {{#each postagens}}
+
+                <div id="{{_id}}" class="col-xs-12 col-sm-4 col-md-3">
+
+                    <img src="{{imgSrc}}" class="img-responsive"/>
+                    <p>
+                        {{descricao}}
+                    </p>
+                    <p>
+                        {{criadoEm}}
+                    </p>
+                </div>
+
+            {{/each}}
+            </div>
+
+        </template>
     <--------------->
+
+Melhorando a apresentação das postagens
+    <-------   main.html         -------->
+        <template name="quadroDePostagens">
+            <p>Fotos</p>
+        </template>
+
+        explicar helpers
+
+        <template name="quadroDePostagens">
+
+            {{#each postagens}}
+            <img src="{{imgSrc}}"/>
+            <p>
+                {{descricao}}
+            </p>
+            <p>
+                {{criadoEm}}
+            </p>
+
+            {{/each}}
+        </template>
+    <--------------->
+
+
+Inserindo e Removendo itens de uma coleção - para inserir recairemos na questão dos EVENTOS
+    <-------    main.html     -------->
+        <form class="js-formulario-inserir-postagem">
+
+            <input type="text" name="img_src"  class="form-control" placeholder="Informe a URL da Imagem">
+            <input type="text" name="descricao" class="form-control" placeholder="Escreva algo... ">
+
+            <div  class="text-right">
+                <button type="submit" class="btn btn-default">Add</button>
+            </div>
+        </form>
+    <--------------->
+
+    criar o template de events para add
+    <-------    main.js     -------->
+        "submit .js-formulario-inserir-postagem"(event, instance){
+            var imgSrc = event.target.img_src.value;
+            var descricao = event.target.descricao.value;
+
+
+            Postagens.insert({
+                'imgSrc':imgSrc,
+                'descricao': descricao,
+                'criadoEm': new Date(),
+            });
+
+            event.target.img_src.value = '';
+            event.target.descricao.value = '';
+        }
+            https://s-media-cache-ak0.pinimg.com/originals/1f/bf/3d/1fbf3d0ec6276634a9dc60a19f47be84.jpg
+
+        return false
+    <--------------->
+
+    criar o template de events para REMOVE
+    <-------    main.html     -------->
+        'click #js-remove-postage'(){
+            var imgId = this._id;
+
+            Postagens.remove({_id:imgId});
+    }
+    <--------------->
+
+Criando uma nav bar com bootstrap
+    <-------    -------->
+    <--------------->
+
+    <-------    -------->
+    <--------------->
+
 
     Sessões - Criando um relógio
     Respondendo a ações do usuário
 
-    Inserindo e Removendo itens de uma coleção
     Altenticação do Usuario
-    Criando uma nav bar com bootstrap
     Hackeando o site
     Tornando a aplicação mais segura
     Deploy da aplicação online
